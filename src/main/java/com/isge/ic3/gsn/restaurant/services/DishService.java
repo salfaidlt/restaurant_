@@ -1,6 +1,7 @@
 package com.isge.ic3.gsn.restaurant.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,19 @@ public class DishService {
 
     public void delete(Long id) {
         dishRepository.deleteById(id);
+    }
+
+    public Optional<Dish> update(Long id, Dish dish_) {
+        return dishRepository.findById(id).map(dish -> {
+            dish.setName(dish_.getName());
+            dish.setPrice(dish_.getPrice());
+            dish.setAllergens(dish_.getAllergens());
+            dish.setCategory(dish_.getCategory());
+            dish.setDescription(dish_.getDescription());
+            dish.setStatus(dish_.getStatus());
+            dish.setMenus(dish_.getMenus());
+
+            return dishRepository.save(dish);
+        });
     }
 }
