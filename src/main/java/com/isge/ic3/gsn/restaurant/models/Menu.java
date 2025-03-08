@@ -2,10 +2,7 @@ package com.isge.ic3.gsn.restaurant.models;
 
 import java.util.List;
 
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,26 +12,16 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Dish {
+public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     private String name;
-    private Double price;
     private String description;
-    private String category;
-
-    @ElementCollection
-    private List<String> allergens;
-
-    @Enumerated(EnumType.STRING)
-    private DishStatus status;
-
-    public enum DishStatus {
-        DISPONIBLE, NON_DISPONIBLE
-    }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<Menu> menus;
+    private List<Dish> dishes;
+
+    private double price = 0.0;
 }
